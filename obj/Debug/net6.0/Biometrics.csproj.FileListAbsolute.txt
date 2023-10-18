@@ -5,7 +5,6 @@ F:\Biometrics\Biometrics\bin\Debug\net6.0\Biometrics.deps.json
 F:\Biometrics\Biometrics\bin\Debug\net6.0\Biometrics.runtimeconfig.json
 F:\Biometrics\Biometrics\bin\Debug\net6.0\Biometrics.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\Biometrics.pdb
-F:\Biometrics\Biometrics\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
@@ -24,7 +23,6 @@ F:\Biometrics\Biometrics\bin\Debug\net6.0\System.DirectoryServices.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\System.DirectoryServices.Protocols.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\System.Drawing.Common.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
-F:\Biometrics\Biometrics\bin\Debug\net6.0\System.IO.Packaging.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\System.Security.Permissions.dll
 F:\Biometrics\Biometrics\bin\Debug\net6.0\System.Windows.Extensions.dll
