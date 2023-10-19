@@ -75,7 +75,13 @@ namespace Biometrics.Controllers
                         UserLevelId = responses[0].UserLevelId,
                         LevelPassword = responses[0].LevelPassword,
                         token = tokenString
+
                     };
+
+                    HttpContext.Session.SetString("UserLevelId", responses[0].UserLevelId);
+                    HttpContext.Session.SetString("LevelPassword", responses[0].LevelPassword);
+                    HttpContext.Session.SetString("token",  tokenString);
+
                 }
                 var response = new CommonResponseBuilder<LoginResponse>(loginResponse)
                     .AddMeta("statusCode", 200)

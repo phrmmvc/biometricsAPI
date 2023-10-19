@@ -15,6 +15,9 @@ builder.Services.AddScoped<IUtility, Utility>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 
+builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+builder.Services.AddScoped<IUserRegistrationRepository, UserRegistrationRepository>();
+
 
 builder.Services.AddScoped<IDbHelper, DbHelper>();
 builder.Services.AddScoped<IDbAccessHelper, DbAccessHelper>();
