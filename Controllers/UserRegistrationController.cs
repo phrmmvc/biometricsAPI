@@ -162,5 +162,51 @@ namespace Biometrics.Controllers
                 return StatusCode(500, errorResponse);
             }
         }
+        
+        [Authorize]
+        [HttpGet("branch-wise-employee-list")]
+        public IActionResult getSubBranchWiseEmployeeList(string znCod, string brCod,string subBrCod, string userLevelCode, string userLevelId, string userLevelPassword, string empId)
+        {
+            if (string.IsNullOrEmpty(znCod))
+            {
+                return BadRequest("Invalid user request!!!");
+            }
+            try
+            {
+                List<SelectListItem> responses = _service.getAllEmployeeByBranchReportWithTerminal(znCod, brCod,subBrCod, userLevelCode,userLevelId,userLevelPassword, empId);
+                List<BranchResponse> branchResponseList = new List<BranchResponse>();
+                if (responses == null)
+                {
+                    return Ok(new CommonResponseBuilder<string>("")
+                    .SetSuccess(false)
+                    .SetErrorMessage("No data found")
+                    .AddMeta("errorCode", 404)
+                    .Build()
+                    );
+                }
+                else
+                {
+                    for (int i = 0; i < responses.Count; i++)
+                    {
+                        branchResponseList.Add(new BranchResponse(responses[i].Text, responses[i].Value));
+                    }
+                }
+                var response = new CommonResponseBuilder<List<BranchResponse>>(branchResponseList)
+                    .AddMeta("statusCode", 200)
+                    .SetErrorMessage("")
+                    .Build();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new CommonResponseBuilder<string>("")
+                    .SetSuccess(false)
+                    .SetErrorMessage(ex.Message)
+                    .AddMeta("errorCode", 500)
+                    .Build();
+
+                return StatusCode(500, errorResponse);
+            }
+        }
     }
 }

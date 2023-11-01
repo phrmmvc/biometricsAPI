@@ -12,6 +12,7 @@ namespace Biometrics.Repository
         public List<SelectListItem> getAllZone(string znCod, string userLevelCode, string userLevelId, string userLevelPassword);
         List<SelectListItem> getAllBranchByZoneCode(string znCod, string brCod, string userLevelCode, string userLevelId, string userLevelPassword);
         List<SelectListItem> getAllSubBranchByBranchCode(string znCod, string brCod, string subBrCod, string userLevelCode, string userLevelId, string userLevelPassword);
+        List<SelectListItem> getAllEmployeeByBranchReportWithTerminal(string znCod, string brCod, string subBrCod, string userLevelCode, string userLevelId, string userLevelPassword, string empId);
     }
     public class UserRegistrationRepository : IUserRegistrationRepository
     {
@@ -59,6 +60,61 @@ namespace Biometrics.Repository
                 Console.WriteLine(ex.ToString());
             }
             return branchList;
+        }
+
+        public List<SelectListItem> getAllEmployeeByBranchReportWithTerminal(string znCod, string brCod, string subBrCod, string userLevelCode, string userLevelId, string userLevelPassword, string empId)
+        {
+            setConnectionString(userLevelId, userLevelPassword);
+            var employeeList = new List<SelectListItem>();
+            string sql = "select a.TERMINALIP,b.ID,upper(b.Emp_name)||' ('||ID||')'||' ['||a.TERMINALIP||']' Emp_name from tguser a,hrm.emp_profile b where 1 = 1 and trim(a.PFILNO) = trim(b.PERSONAL_FILE_NO) ";
+
+            if ((subBrCod != null && (brCod == null || brCod == "")) || (subBrCod != null && subBrCod != "null" && subBrCod != "NULL" && subBrCod != "" && subBrCod != "0" && brCod != null))
+            {
+                sql += " and b.CURR_SUB_BR in (" + subBrCod + ")";
+            }
+            else
+            {
+                sql += " and b.CURR_SUB_BR is null ";
+            }
+
+
+
+            if (brCod != null && (subBrCod == null || subBrCod == "" || subBrCod == "0" || subBrCod == "NULL"))
+            {
+                sql += " and b.current_place_code in(" + brCod + ")";
+            }
+            if (userLevelCode == "99" || userLevelCode == "67")
+            {
+                sql += " and b.ID = '" + empId + "'";
+            }
+            //else
+            //{
+            //    var titleModel = new SelectListItem
+            //    {
+            //        Text = "0",
+            //        Value = "--Please select an Employee--",
+            //    };
+
+            //    employeeList.Add(titleModel);
+            //}
+            sql += " order by b.dsg_root_id asc";
+            //var employeeList = new List<CommonModel>();
+            _dbHelper.ExecuteQuery(sql, reader =>
+            {
+                var V_EmployeeList = new SelectListItem
+                {
+                    Text = reader["Id"].ToString(),
+                    Value = reader["EMP_NAME"].ToString(),
+                };
+
+                employeeList.Add(V_EmployeeList);
+            });
+            if (employeeList.Count == 1 && employeeList[0].Text == "0")
+            {
+                var emptyList = new List<SelectListItem>();
+                return emptyList;
+            }
+            return employeeList;
         }
 
         public List<SelectListItem> getAllSubBranchByBranchCode(string znCod, string brCod, string subBrCod, string userLevelCode, string userLevelId, string userLevelPassword)

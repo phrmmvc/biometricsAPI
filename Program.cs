@@ -38,7 +38,7 @@ builder.Services.AddSession(options =>
 });
 builder.Services.AddSwaggerGen(opt =>
 {
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "JWT Authorization", Version = "v1" });
+    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Biometrics API", Version = "v1" });
     opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
